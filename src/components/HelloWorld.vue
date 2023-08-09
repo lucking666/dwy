@@ -13,6 +13,8 @@
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
       <div class="el-upload__tip" slot="tip">只能上传xlsx文件</div>
     </el-upload>
+    <div @click="handlearr">{{ arr }}</div>
+    
   </div>
 </template>
 
@@ -25,6 +27,7 @@ export default {
     return {
       msg: '解决冲突',
       a:false,
+      arr:[1,2,3,4,5,6,7,8],
     }
   },
   created() {
@@ -73,6 +76,12 @@ export default {
     handleClick(){
       this.a=!this.a;
       this.msg=this.a?"变成elementui的按钮值":'Welcome to Your Vue.js App';
+    },
+    handlearr(){
+      console.log(typeof(this.arr));
+      this.arr=this.arr.slice(0,3);
+      let arr = [1,2,3]
+      console.log(arr[Symbol.iterator]) 
     }
   },
 }
