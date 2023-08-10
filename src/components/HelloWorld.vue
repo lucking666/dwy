@@ -14,12 +14,13 @@
       <div class="el-upload__tip" slot="tip">只能上传xlsx文件</div>
     </el-upload>
     <div @click="handlearr">{{ arr }}</div>
-    
+    <h1>{{city}}</h1>
   </div>
 </template>
 
 <script>
 import async from 'async';
+import { mapState, mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'HelloWorld',
@@ -32,6 +33,9 @@ export default {
   },
   created() {
     // 在组件的生命周期钩子函数中使用 async 方法
+  },
+  computed:{
+    ...mapState(['city']), // 将 count 映射到组件的计算属性中
   },
   methods:{
     //导出值的时候使用
@@ -82,7 +86,7 @@ export default {
       this.arr=this.arr.slice(0,3);
       let arr = [1,2,3]
       console.log(arr[Symbol.iterator]) 
-    }
+    },
   },
 }
 </script>
