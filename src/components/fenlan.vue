@@ -64,22 +64,26 @@
             </el-header>
             
             <el-main>
-            <el-table 
-            :data="tableData"
-            :pagination="true"
-            :page-size="10">
-                <el-table-column prop="date" label="日期" width="140">
-                </el-table-column>
-                <el-table-column prop="name" label="姓名" width="120">
-                </el-table-column>
-                <el-table-column prop="address" label="地址">
-                </el-table-column>
-            </el-table>
-            <el-pagination
-            :pager-count="11"
-            layout="prev, pager, next"
-            :total="1000">
-            </el-pagination>
+                <el-table :data="tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
+                    :header-cell-style="{background:'#eaeaea'}" 
+                    stripe>
+                    <el-table-column prop="date" label="日期" width="140">
+                    </el-table-column>
+                    <el-table-column prop="name" label="姓名" width="120">
+                    </el-table-column>
+                    <el-table-column prop="address" label="地址">
+                    </el-table-column>
+                </el-table>
+                <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="[10, 20, 50, 100]"
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="tableData.length">
+                </el-pagination>
+
             </el-main>
         </el-container>
     </el-container>
@@ -95,9 +99,23 @@ export default {
         address: '上海市普陀区金沙江路 1518 弄'
     };
     return {
+        currentPage: 1,
+        pageSize: 10,
         tableData: Array(200).fill(item)
     }
+    },
+    methods: {
+    // @size-change页码展示数量点击事件
+    handleSizeChange (val) {
+      // 更新每页展示数据size
+      this.pageSize = val
+    },
+    // @current-change页码点击事件
+    handleCurrentChange (val) {
+      // 更新当前页数是第几页
+      this.currentPage = val
     }
+  }
 };
 </script>
 
